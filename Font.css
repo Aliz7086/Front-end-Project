@@ -1,0 +1,121 @@
+body {
+  background: #dcece9;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.main-area {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 25px;
+}
+
+.section-box {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+#message {
+  font-weight: bold;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input-item {
+  flex: 1 1 180px;
+}
+
+.input-long {
+  flex: 1 1 300px;
+}
+
+.search-item {
+  flex: 2 1 300px;
+}
+
+.button-item {
+  display: grid;
+}
+
+.book-list-area {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.book {
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.cover {
+  width: 100%;
+  height: 220px;
+  background: #f2f2f2;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.info {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.rating {
+  color: goldenrod;
+  font-weight: bold;
+}
+
+.favorite {
+  color: #c79200;
+  font-weight: bold;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
