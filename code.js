@@ -182,6 +182,7 @@ function showBooks() {
         '<div class="favorite">' + favoriteText + '</div>' +
         '<div class="actions">' +
           '<button class="btn btn-warning btn-sm" onclick="toggleFavorite(' + book.id + ')">Favorite</button>' +
+          '<button class="btn btn-success btn-sm" onclick="changeStatus(' + book.id + ')">Change Status</button>' +
           '<button class="btn btn-info btn-sm" onclick="changeRating(' + book.id + ')">Change Rating</button>' +
           '<button class="btn btn-danger btn-sm" onclick="deleteBook(' + book.id + ')">Delete</button>' +
         '</div>' +
@@ -218,6 +219,11 @@ function addBook() {
   books.push(newBook);
 
   message.innerHTML = "Book added successfully!";
+
+  if (status === "Completed") {
+    message.innerHTML = "Book added successfully! 🎉 Completed!";
+    startConfetti();
+  }
 
   document.getElementById("titleInput").value = "";
   document.getElementById("authorInput").value = "";
@@ -290,6 +296,38 @@ function changeRating(bookId) {
   showBooks();
 }
 
+function changeStatus(bookId) {
+  let newStatus = prompt("Enter new status: To Read, Reading, or Completed");
+
+  if (newStatus === null) {
+    return;
+  }
+
+  newStatus = newStatus.trim();
+
+  if (
+    newStatus !== "To Read" &&
+    newStatus !== "Reading" &&
+    newStatus !== "Completed"
+  ) {
+    alert("Please enter exactly: To Read, Reading, or Completed.");
+    return;
+  }
+
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].id === bookId) {
+      books[i].status = newStatus;
+
+      if (newStatus === "Completed") {
+        alert("🎉 Congratulations! You completed this book!");
+        startConfetti();
+      }
+    }
+  }
+
+  showBooks();
+}
+
 function updateGenreFilter() {
   let genreFilter = document.getElementById("genreFilter");
   let genreList = [];
@@ -316,6 +354,60 @@ function updateGenreFilter() {
       '<option value="' + genreList[i] + '">' + genreList[i] + '</option>';
   }
 }
+
+function startConfetti() {
+  let canvas = document.getElementById("confettiCanvas");
+  let ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let pieces = [];
+
+  for (let i = 0; i < 120; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      w: Math.random() * 8 + 4,
+      h: Math.random() * 8 + 4,
+      dx: Math.random() * 4 - 2,
+      dy: Math.random() * 3 + 2
+    });
+  }
+
+  let count = 0;
+
+  let timer = setInterval(function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < pieces.length; i++) {
+      let p = pieces[i];
+
+      ctx.fillStyle = "hsl(" + (i * 20) + ", 90%, 60%)";
+      ctx.fillRect(p.x, p.y, p.w, p.h);
+
+      p.x = p.x + p.dx;
+      p.y = p.y + p.dy;
+
+      if (p.y > canvas.height) {
+        p.y = -10;
+      }
+    }
+
+    count++;
+
+    if (count > 60) {
+      clearInterval(timer);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }, 30);
+}
+
+window.addEventListener("resize", function() {
+  let canvas = document.getElementById("confettiCanvas");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 
 updateGenreFilter();
 showBooks();
